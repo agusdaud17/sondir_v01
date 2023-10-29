@@ -24,7 +24,7 @@ if uploaded_file is None:
             - tahanan selimut, fs [Kg/cm2]
 
             """)
-    st.write("**Contoh isi file excel untuk input data:**")
+    st.write("**Berikut contoh isi file excel untuk input data:**")
     st.image(img_contoh,width=300)
     st.write("Download contoh file data sondir [Download](https://www.dropbox.com/scl/fi/r3wf0ejkkxb6hfibcqwzn/data_sondir.xlsx?rlkey=fs3ufz1isrn0dj7g2j0zk55ke&dl=0)")
 else:
