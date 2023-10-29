@@ -13,7 +13,7 @@ with st.sidebar:
 tab1, tab2, tab3 = st.tabs(["Profil Tanah", "Kapasitas Dukung", "Catatan"])
 
 if uploaded_file is None:
-    st.write("Klik **[Browse files]** untuk memasukkan data sondir.")
+    st.write("Klik **[Browse files]** untuk memasukkan data sondir dalam bentuk file excel.")
     st.markdown("""
             Dalam file excel tersebut harus memiliki tiga (3) parameter yaitu:
              
