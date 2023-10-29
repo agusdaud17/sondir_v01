@@ -29,7 +29,7 @@ if uploaded_file is None:
     st.image(img_contoh,width=300)
 
 else:
-    cpt = Robertson1990(file_path = "data/s2.xlsx")
+    cpt = Robertson1990(file_path = uploaded_file)
     cpt.solve()
     cpt.soil_profil()
     fig_qc = cpt.plot(idx=0,color="red") # qc
