@@ -25,9 +25,7 @@ if uploaded_file is None:
 
             """)
     st.write("**Contoh isi file excel untuk input data:**")
-
     st.image(img_contoh,width=300)
-
 else:
     cpt = Robertson1990(file_path = uploaded_file)
     cpt.solve()
