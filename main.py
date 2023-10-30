@@ -26,7 +26,7 @@ if uploaded_file is None:
             """)
     st.write("**Berikut contoh isi file excel untuk input data:**")
     st.image(img_contoh,width=300)
-    st.write("Download contoh file data sondir [Download](https://www.dropbox.com/scl/fi/r3wf0ejkkxb6hfibcqwzn/data_sondir.xlsx?rlkey=fs3ufz1isrn0dj7g2j0zk55ke&dl=0)")
+    st.write("Download contoh file data sondir [Download](https://www.dropbox.com/scl/fi/r3wf0ejkkxb6hfibcqwzn/data_sondir.xlsx?rlkey=fs3ufz1isrn0dj7g2j0zk55ke&dl=0) atau [Download](https://docs.google.com/spreadsheets/d/1RA-K24C7r_1fTgX65MGyJ8XyTbyZxbhu/edit?usp=sharing&ouid=101300635660345969319&rtpof=true&sd=true)")
 else:
     cpt = Robertson1990(file_path = uploaded_file)
     cpt.solve()
