@@ -10,7 +10,7 @@ st.header("Sondir v.01")
 with st.sidebar:
     uploaded_file = st.file_uploader("Import data sondir:",type="xlsx")
 
-tab1, tab2, tab3 = st.tabs(["Profil Tanah", "Kapasitas Dukung", "Catatan"])
+tab1, tab2, tab3 = st.tabs(["Profil Tanah", "Kapasitas Dukung", "Teori"])
 
 if uploaded_file is None:
     st.write("Klik **[Browse files]** untuk memasukkan data sondir dalam bentuk file excel.")
