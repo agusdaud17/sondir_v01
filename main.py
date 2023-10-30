@@ -7,6 +7,8 @@ img_contoh = Image.open('contoh_data.png')
 st.set_page_config(layout="wide")
 st.header("Sondir v.01")
 
+st.subheader("Sondir Mekanikal - Bikonus [SNI 2827:2008]")
+
 with st.sidebar:
     uploaded_file = st.file_uploader("Import data sondir:",type="xlsx")
 
