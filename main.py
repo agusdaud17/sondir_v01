@@ -10,7 +10,8 @@ st.header("Sondir v.01")
 st.subheader("Sondir Mekanikal - Bikonus [SNI 2827:2008]")
 
 with st.sidebar:
-    uploaded_file = st.file_uploader("Import data sondir:",type="xlsx")
+    st.subheader("Import Data Sondir:")
+    uploaded_file = st.file_uploader("File excel .xlsx",type="xlsx")
 
 tab1, tab2, tab3 = st.tabs(["Profil Tanah", "Kapasitas Dukung", "Teori"])
 
