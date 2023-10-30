@@ -168,7 +168,7 @@ class Robertson1990:
             )
 
         # fig.update_xaxes(title_text="Zona")
-        fig.update_layout(paper_bgcolor="white", plot_bgcolor="white")
+        # fig.update_layout(paper_bgcolor="white", plot_bgcolor="white")
         fig.update_layout(hovermode='y unified')
         fig.update_traces(hovertemplate = "%{y} m")
         fig.update_yaxes(autorange="reversed")
