@@ -7,7 +7,7 @@ img_contoh = Image.open('contoh_data.png')
 st.set_page_config(layout="wide")
 st.header("Sondir v.01")
 
-st.subheader("Sondir Mekanikal - Bikonus")
+st.write("**Sondir Mekanikal - Bikonus**")
 
 with st.sidebar:
     st.subheader("Import Data Sondir:")
