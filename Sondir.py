@@ -22,6 +22,11 @@ x_grid = np.arange(0,1649,1)
 Kg_cm = 0.0981 # MPa
 to_kPa = 1000 # MPa
 
+table_lunne = {
+    "SBTn zone": [1,2,3,4,5,6,7,8,9],
+    "Berat isi [kN/m3]": [17.5,12.5,17.5,18,18.5,19.0,20.0,20.5,19.0]
+}
+
 class Robertson1990:
     """docstring fo Sondir."""
 
@@ -30,6 +35,7 @@ class Robertson1990:
         self.file_path = file_path
         self.df = pd.read_excel(self.file_path)
         self.kPa = kPa
+        self.df_lunne = pd.DataFrame(table_lunne)
 
     def zoneByColor(self,Rf,Qt):
         x_logref = np.linspace(-1,1,1649)
@@ -91,6 +97,7 @@ class Robertson1990:
         self.df["qc_pa [-]"] = (self.df.iloc[:,1] * self.kPa) / 100 # qc/Pa
         self.df["Zona [-]"] = np.vectorize(self.zoneByColor)(self.df["Rf [%]"],self.df["qc_pa [-]"])
         self.df["Jenis Tanah [-]"] = np.vectorize(self.jenis_tanah)(self.df["Zona [-]"])
+        self.df["Berat isi [kN/m3]"] = np.vectorize(self.berat_isi)(self.df["Zona [-]"])
         self.df["Zona [-]"][0] = None
         self.df["Jenis Tanah [-]"][0] = None
 
@@ -114,7 +121,28 @@ class Robertson1990:
         else:
             name = "Sangat kaku, berbutir halus"
         return name
-    
+        
+    def berat_isi(self,val):
+        if val == 1:
+            g = 17.5
+        elif val == 2:
+            g = 12.5
+        elif val == 3:
+            g = 17.5
+        elif val == 4:
+            g = 18.0
+        elif val == 5:
+            g = 18.5
+        elif val == 6:
+            g = 19.0
+        elif val == 7:
+            g = 20.0
+        elif val == 8:
+            g = 20.05
+        else:
+            g = 19.0
+        return g
+        
     def color_func(self,val):
         if val == 1:
             name = "Butiran halus, sensitive"
