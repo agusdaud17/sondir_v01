@@ -174,7 +174,7 @@ class Robertson1990:
             if zona in zona_kohesif:
                 val = self.konsistensi(list_su[i])
             else:
-                self.df["Su [kPa]"][i] = 0
+                self.df["Su [kPa]"][i] = 0.0
                 val = self.kepadatan_relatif(list_qc[i])
             list_kepadatan.append(val)
 
