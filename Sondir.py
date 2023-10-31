@@ -40,7 +40,7 @@ class Robertson1990:
         if Qt > 1000:
             Qt = 1000
         elif Qt <= 1:
-            Qt = 1
+            Qt = 1.1
 
         if Rf > 10:
             Rf = 10
