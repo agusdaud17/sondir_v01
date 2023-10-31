@@ -172,7 +172,10 @@ class Robertson1990:
         for i in range(1,N_data):
             zona = list_zona[i]
             if zona in zona_kohesif:
-                val = self.konsistensi(list_su[i])
+                Su = list_su[i]
+                val = self.konsistensi(Su)
+                if Su < 0:
+                    self.df["Su [kPa]"][i] = 0.0
             else:
                 self.df["Su [kPa]"][i] = 0.0
                 val = self.kepadatan_relatif(list_qc[i])
