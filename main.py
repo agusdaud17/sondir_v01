@@ -10,6 +10,8 @@ table_lunne = {
     "Berat isi [kN/m3]": [17.5,12.5,17.5,18,18.5,19.0,20.0,20.5,19.0]
 }
 
+df_lunne = pd.DataFrame(table_lunne)
+
 st.set_page_config(layout="wide")
 st.header("Sondir v.01")
 
@@ -149,4 +151,4 @@ with tab3:
         st.image(img_robertson,width=360)
         
         st.subheader("Berat isi tanah (Lunne et al., 1997)")
-        st.write(pd.DataFrame(table_lunne))
+        st.dataframe(df_lunne,hide_index=True)
