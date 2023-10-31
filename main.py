@@ -7,7 +7,7 @@ img_contoh = Image.open('contoh_data.png')
 st.set_page_config(layout="wide")
 st.header("Sondir v.01")
 
-st.write("**Sondir Mekanikal - Bikonus**")
+st.write("*Sondir Mekanikal - Bikonus*")
 
 with st.sidebar:
     st.subheader("Import Data Sondir:")
@@ -122,7 +122,7 @@ with tab3:
         st.markdown("""
                     Kapasitas dukung ijin [$q_a$], dihitung berdasarkan rumus Meyerhof (1956). Kapasitas dukung ijin ini didasarkan pada penurunan pondasi sebesar 1 inch [2.54 cm].
 
-                    **Kapasitas dukunng ini hanya berlaku untuk fondasi dangkal pada tanah pasir**.
+                    **Kapasitas dukung ini hanya berlaku untuk fondasi dangkal pada tanah pasir**.
                     """
                     )
         r"""$q_a = \frac{q_c}{30}$ untuk $B \leq 1.2 m$"""
