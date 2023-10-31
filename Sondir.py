@@ -207,6 +207,8 @@ class Robertson1990:
             list_svo_ef.append(svo_ef)
 
         self.df["svo [kPa]"] = list_svo
+        self.df["u [kPa]"] = list_u
+        self.df["svo_ef [kPa]"] = list_svo_ef
 
     def jenis_tanah(self,val):
         if val == 1:
