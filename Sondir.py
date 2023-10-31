@@ -38,14 +38,14 @@ class Robertson1990:
         y_grid = np.arange(0,1823,1)
 
         if Qt > 1000:
-            Qt = 1000
+            Qt = 999
         elif Qt <= 1:
             Qt = 1.1
 
         if Rf > 10:
-            Rf = 10
+            Rf = 9.9
         elif Rf <= 0.1:
-            Rf = 0.1
+            Rf = 0.105
 
         fx = interpolate.interp1d(x_logref, x_grid)
         fy = interpolate.interp1d(y_logref, y_grid)
