@@ -62,7 +62,7 @@ else:
 
         st.divider()
         st.subheader("Tabel:")
-        st.dataframe(cpt.df)
+        st.dataframe(cpt.df,hide_index=True)
 
         csv1 = cpt.df.to_csv(index=False).encode('utf-8')
         st.download_button(
@@ -99,7 +99,7 @@ else:
         
         st.divider()
         st.subheader("Tabel Kapasitas Dukung:")
-        st.dataframe(cpt.df_qa)
+        st.dataframe(cpt.df_qa,hide_index=True)
 
         csv2 = cpt.df_qa.to_csv(index=False).encode('utf-8')
         st.download_button(
