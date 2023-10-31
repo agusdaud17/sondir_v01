@@ -4,6 +4,11 @@ from PIL import Image
 img_robertson = Image.open('grafik_robertson.png')
 img_contoh = Image.open('contoh_data.png')
 
+table_lunne = {
+    "SBTn zone": [1,2,3,4,5,6,7,8,9],
+    "Berat isi [kN/m3]": [17.5,12.5,17.5,18,18.5,19.0,20.0,20.5,19.0],
+}
+
 st.set_page_config(layout="wide")
 st.header("Sondir v.01")
 
@@ -141,3 +146,6 @@ with tab3:
     with col7:
         st.subheader("SBTn zone Robertson (1990)")
         st.image(img_robertson,width=360)
+        
+        st.subheader("Berat isi tanah (Lunne et al., 1997)")
+        st.write(pd.DataFrame(table_lunne))
