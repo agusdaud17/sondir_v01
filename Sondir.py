@@ -22,11 +22,6 @@ x_grid = np.arange(0,1649,1)
 Kg_cm = 0.0981 # MPa
 to_kPa = 1000 # MPa
 
-table_lunne = {
-    "SBTn zone": [1,2,3,4,5,6,7,8,9],
-    "Berat isi [kN/m3]": [17.5,12.5,17.5,18,18.5,19.0,20.0,20.5,19.0]
-}
-
 class Robertson1990:
     """docstring fo Sondir."""
 
@@ -35,7 +30,6 @@ class Robertson1990:
         self.file_path = file_path
         self.df = pd.read_excel(self.file_path)
         self.kPa = kPa
-        self.df_lunne = pd.DataFrame(table_lunne)
 
     def zoneByColor(self,Rf,Qt):
         x_logref = np.linspace(-1,1,1649)
