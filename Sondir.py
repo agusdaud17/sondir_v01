@@ -1,6 +1,5 @@
 """
-Package untuk mengolah data sondir berdasarkan Robertson 2009
-Baik single point, maupun multi point test.
+Package untuk mengolah data sondir berdasarkan Robertson 1990
 """
 
 import pandas as pd
@@ -25,11 +24,13 @@ to_kPa = 1000 # MPa
 class Robertson1990:
     """docstring fo Sondir."""
 
-    def __init__(self,id_="S-1", file_path=None, kPa=98.1):
+    def __init__(self,id_="S-1", file_path=None, kPa=98.1, mat=None, gw=9.81):
         self.id_ = id_
         self.file_path = file_path
         self.df = pd.read_excel(self.file_path)
         self.kPa = kPa
+        self.mat = mat
+        self.gw = gw
 
     def zoneByColor(self,Rf,Qt):
         x_logref = np.linspace(-1,1,1649)
@@ -91,9 +92,117 @@ class Robertson1990:
         self.df["qc_pa [-]"] = (self.df.iloc[:,1] * self.kPa) / 100 # qc/Pa
         self.df["Zona [-]"] = np.vectorize(self.zoneByColor)(self.df["Rf [%]"],self.df["qc_pa [-]"])
         self.df["Jenis Tanah [-]"] = np.vectorize(self.jenis_tanah)(self.df["Zona [-]"])
+
+        self.df["qc [kPa]"] = round(self.df.iloc[:,1]*self.kPa, 2)
         self.df["Berat isi [kN/m3]"] = np.vectorize(self.berat_isi)(self.df["Zona [-]"])
         self.df["Zona [-]"][0] = None
         self.df["Jenis Tanah [-]"][0] = None
+        self.solve_overburden()
+
+        self.df["Su [kPa]"] = round((self.df["qc [kPa]"] - self.df["svo [kPa]"]) / 14, 2)
+        self.solve_kepadatan()
+
+    def solve_overburden(self):
+        list_z = list(self.df.iloc[:,0])
+        list_g = list(self.df["Berat isi [kN/m3]"])
+        N_data = len(list_g)
+        list_svo = [0]
+        list_u = [0]
+        list_svo_ef = [0]
+
+        for i in range(1,N_data):
+            g = list_g[i]
+            z = list_z[i]
+            dz = list_z[i] - list_z[i-1]
+
+            u = 0
+            if self.mat is not None and z > self.mat:
+                u = (z-self.mat)*self.gw
+            svo = list_svo[i-1] + (g*dz)
+            svo_ef = svo - u
+
+            list_svo.append(svo)
+            list_u.append(u)
+            list_svo_ef.append(svo_ef)
+
+        self.df["svo [kPa]"] = list_svo
+        self.df["u [kPa]"] = list_u
+        self.df["svo_ef [kPa]"] = list_svo_ef
+
+    def konsistensi(self,Su):
+        if Su < 12:
+            const = "Sangat lunak"
+        elif Su < 25:
+            const = "Lunak"
+        elif Su < 50:
+            const = "Agak kaku"
+        elif Su < 100:
+            const = "Kaku"
+        elif Su < 200:
+            const = "Sangat kaku"
+        else:
+            const = "Keras"
+        return const
+
+    def kepadatan_relatif(self,qc):
+        qc = qc/1000
+        if qc < 2:
+            const = "Sangat lepas"
+        elif qc < 4:
+            const = "Lepas"
+        elif qc < 12:
+            const = "Padat sedang"
+        elif qc < 20:
+            const = "Padat"
+        else:
+            const = "Sangat padat"
+        return const
+
+    def solve_kepadatan(self):
+        list_zona = list(self.df["Zona [-]"])
+        list_qc = list(self.df["qc [kPa]"])
+        list_su = list(self.df["svo [kPa]"])
+
+        N_data = len(list_zona)
+
+        zona_kohesif = [1,2,3,4,9]
+
+        list_kepadatan = [None]
+
+        for i in range(1,N_data):
+            zona = list_zona[i]
+            if zona in zona_kohesif:
+                val = self.konsistensi(list_su[i])
+            else:
+                val = self.kepadatan_relatif(list_qc[i])
+            list_kepadatan.append(val)
+
+        self.df["Kepadatan/ konsistensi"] = list_kepadatan
+
+    def solve_overburden(self):
+        list_z = list(self.df.iloc[:,0])
+        list_g = list(self.df["Berat isi [kN/m3]"])
+        N_data = len(list_g)
+        list_svo = [0]
+        list_u = [0]
+        list_svo_ef = [0]
+
+        for i in range(1,N_data):
+            g = list_g[i]
+            z = list_z[i]
+            dz = list_z[i] - list_z[i-1]
+
+            u = 0
+            if self.mat is not None and z > self.mat:
+                u = (z-self.mat)*self.gw
+            svo = list_svo[i-1] + (g*dz)
+            svo_ef = svo - u
+
+            list_svo.append(svo)
+            list_u.append(u)
+            list_svo_ef.append(svo_ef)
+
+        self.df["svo [kPa]"] = list_svo
 
     def jenis_tanah(self,val):
         if val == 1:
@@ -133,8 +242,10 @@ class Robertson1990:
             g = 20.0
         elif val == 8:
             g = 20.05
-        else:
+        elif val == 9:
             g = 19.0
+        else:
+            g = 0
         return g
         
     def color_func(self,val):
