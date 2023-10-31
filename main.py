@@ -7,6 +7,7 @@ img_contoh = Image.open('contoh_data.png')
 
 table_lunne = {
     "SBTn zone": [1,2,3,4,5,6,7,8,9],
+    "Jenis tanah": ["Butiran halus, sensitive", "Lempung - Tanah organik","Lempung: lempung - lempung berlanau","Lanau mix: lanau berlempung - lempung berlanau","Pasir mix: pasir berlanau - lanau berpasir","Pasir: Pasir - Pasir berlanau","Pasir padat - Pasir berkerikil", "Pasir kaku - pasir berlempung (overconsolidate)","Sangat kaku, berbutir halus"]
     "Berat isi [kN/m3]": [17.5,12.5,17.5,18,18.5,19.0,20.0,20.5,19.0]
 }
 
