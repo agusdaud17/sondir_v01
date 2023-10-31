@@ -161,7 +161,7 @@ class Robertson1990:
     def solve_kepadatan(self):
         list_zona = list(self.df["Zona [-]"])
         list_qc = list(self.df["qc [kPa]"])
-        list_su = list(self.df["svo [kPa]"])
+        list_su = list(self.df["Su [kPa]"])
 
         N_data = len(list_zona)
 
@@ -174,6 +174,7 @@ class Robertson1990:
             if zona in zona_kohesif:
                 val = self.konsistensi(list_su[i])
             else:
+                self.df["Su [kPa]"][i] = 0
                 val = self.kepadatan_relatif(list_qc[i])
             list_kepadatan.append(val)
 
