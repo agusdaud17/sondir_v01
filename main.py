@@ -21,6 +21,7 @@ st.write("*Sondir Mekanikal - Bikonus*")
 with st.sidebar:
     st.subheader("Import Data Sondir:")
     uploaded_file = st.file_uploader("File excel .xlsx",type="xlsx")
+    input_mat = st.number_input("Kedalaman muka air tanah (MAT)", value=999.0, min_value=0.0)
 
 tab1, tab2, tab3 = st.tabs(["Profil Tanah", "Kapasitas Dukung", "Teori"])
 
@@ -41,7 +42,11 @@ if uploaded_file is None:
         st.image(img_contoh,width=300)
         st.write("Download contoh file data sondir [Download](https://www.dropbox.com/scl/fi/r3wf0ejkkxb6hfibcqwzn/data_sondir.xlsx?rlkey=fs3ufz1isrn0dj7g2j0zk55ke&dl=0) atau [Download](https://docs.google.com/spreadsheets/d/1RA-K24C7r_1fTgX65MGyJ8XyTbyZxbhu/edit?usp=sharing&ouid=101300635660345969319&rtpof=true&sd=true)")
 else:
-    cpt = Robertson1990(file_path = uploaded_file)
+    if input_mat == 999:
+        mat = None
+    else:
+        mat = input_mat
+    cpt = Robertson1990(file_path = uploaded_file, mat=mat)
     cpt.solve()
     cpt.soil_profil()
     fig_qc = cpt.plot(idx=0,color="red") # qc
