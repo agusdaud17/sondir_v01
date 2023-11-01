@@ -27,7 +27,7 @@ tab1, tab2, tab3 = st.tabs(["Profil Tanah", "Kapasitas Dukung", "Teori"])
 
 if uploaded_file is None:
     with tab1:
-        st.write("Klik **[Browse files]** untuk memasukkan data sondir dalam bentuk file excel.")
+        st.write("Klik **[Browse files]** untuk memasukkan data sondir dalam format excel.")
         st.markdown("""
                 Dalam file excel tersebut harus memiliki tiga (3) parameter yaitu:
                  
